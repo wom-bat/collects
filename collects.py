@@ -108,7 +108,7 @@ def church_date(d, incspecials = True):
         christmas = date(y, 12, 25)
         if christmas < d:
             return "Christmas 1"
-        weeks_before_Christmas = 1 + ((christmas - d).days // 7)
+        weeks_before_Christmas = (((christmas - d).days + 6) // 7)
         if weeks_before_Christmas < 6:
             return christmas_rel[weeks_before_Christmas - 1]
         week = (days - 56) // 7
@@ -798,7 +798,7 @@ def collect_for(dd):
         ret.append((day, special_collects[day], True))
     nonspecial = church_date(sun, incspecials = False)
     if nonspecial in collects:
-        ret.append((sun, collects[nonspecial], nonspecial))
+        ret.append((nonspecial, collects[nonspecial], False))
     return ret
 
 def print_collect(day):
@@ -826,4 +826,3 @@ else:
             print("Can't coerce %s to a date\n" % d)
             continue;
         print_collect(day)
-
